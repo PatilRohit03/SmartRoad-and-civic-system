@@ -15,6 +15,7 @@ import {
   Save,
   ShieldCheck,
   Brain,
+  Mail,
 } from 'lucide-react';
 
 interface Pothole {
@@ -34,6 +35,10 @@ interface Pothole {
   // 🖼 MEDIA
   image_path?: string;
   proof_image?: string;
+
+  // ✉️ ESCALATION
+  escalated_to_ministry?: boolean;
+  ministry_email_path?: string;
 }
 
 const statuses = [
@@ -110,6 +115,17 @@ const AdminDashboard = () => {
       fetchPotholes();
     } catch {
       toast.error('Update failed');
+    }
+  };
+
+  const handleEscalate = async (id: string) => {
+    const toastId = toast.loading('Escalating grievance to Ministry...');
+    try {
+      await api.post(`/pothole/${id}/escalate`);
+      toast.success('Grievance successfully escalated to Ministry!', { id: toastId });
+      fetchPotholes();
+    } catch (err: any) {
+      toast.error(err?.response?.data?.detail || 'Escalation failed', { id: toastId });
     }
   };
 
@@ -214,6 +230,36 @@ const AdminDashboard = () => {
                         </>
                       ) : (
                         <span className="text-muted-foreground">Not verified</span>
+                      )}
+
+                      {/* ✉️ MINISTRY ESCALATION */}
+                      {p.escalated_to_ministry ? (
+                        <div className="pt-2 mt-2 border-t border-dashed border-border space-y-1">
+                          <div className="flex items-center gap-1 text-blue-600 font-semibold">
+                            <Mail size={12} /> Ministry Escalated
+                          </div>
+                          {p.ministry_email_path && (
+                            <a
+                              href={`http://127.0.0.1:8000/${p.ministry_email_path}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-1 text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200 hover:bg-blue-100 transition-colors font-medium cursor-pointer"
+                            >
+                              View Grievance Mail
+                            </a>
+                          )}
+                        </div>
+                      ) : (
+                        p.status !== 'resolved' && (
+                          <div className="pt-2 mt-2 border-t border-dashed border-border">
+                            <button
+                              onClick={() => handleEscalate(p._id)}
+                              className="inline-flex items-center gap-1 text-[10px] bg-slate-100 text-slate-700 px-2 py-1 rounded border hover:bg-slate-200 transition-colors font-medium w-full justify-center"
+                            >
+                              <Mail size={10} /> Escalate to MoRTH
+                            </button>
+                          </div>
+                        )
                       )}
                     </td>
 

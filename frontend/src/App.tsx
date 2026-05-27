@@ -5,11 +5,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import AppRouter from '@/router/AppRouter';
 import { useAuthStore } from '@/store/authStore';
 import { useThemeStore } from '@/store/themeStore';
+import AiAssistant from '@/components/AiAssistant';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   const loadFromStorage = useAuthStore((s) => s.loadFromStorage);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   const initTheme = useThemeStore((s) => s.init);
 
   useEffect(() => {
@@ -22,6 +24,7 @@ const App = () => {
       <TooltipProvider>
         <Sonner />
         <AppRouter />
+        {isAuthenticated && <AiAssistant />}
       </TooltipProvider>
     </QueryClientProvider>
   );

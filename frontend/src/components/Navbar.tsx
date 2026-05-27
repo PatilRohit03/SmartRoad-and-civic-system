@@ -1,7 +1,7 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
 import ThemeToggle from './ThemeToggle';
-import { LogOut, Map, LayoutDashboard, Construction } from 'lucide-react';
+import { LogOut, Map, LayoutDashboard, Construction, Camera } from 'lucide-react';
 
 const Navbar = () => {
   const { isAuthenticated, user, logout } = useAuthStore();
@@ -37,6 +37,24 @@ const Navbar = () => {
                 <LayoutDashboard size={16} />
                 Dashboard
               </Link>
+              {user?.role !== 'admin' && (
+                <>
+                  <Link
+                    to="/report"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm hover:bg-secondary transition-colors"
+                  >
+                    <Construction size={16} />
+                    Report
+                  </Link>
+                  <Link
+                    to="/live-camera"
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm hover:bg-secondary transition-colors"
+                  >
+                    <Camera size={16} />
+                    Live Camera
+                  </Link>
+                </>
+              )}
             </>
           )}
           <ThemeToggle />

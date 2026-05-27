@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useAuthStore } from '@/store/authStore';
-import { Map, LayoutDashboard, FileText, PlusCircle, X } from 'lucide-react';
+import { Map, LayoutDashboard, FileText, PlusCircle, X, Camera } from 'lucide-react';
 
 interface SidebarProps {
   open: boolean;
@@ -14,7 +14,10 @@ const Sidebar = ({ open, onClose }: SidebarProps) => {
   const links = [
     { to: isAdmin ? '/admin' : '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { to: '/map', label: 'Map View', icon: Map },
-    ...(!isAdmin ? [{ to: '/report', label: 'Report Issue', icon: PlusCircle }] : []),
+    ...(!isAdmin ? [
+      { to: '/report', label: 'Report Issue', icon: PlusCircle },
+      { to: '/live-camera', label: 'Live Camera', icon: Camera },
+    ] : []),
   ];
 
   return (

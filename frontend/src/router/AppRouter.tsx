@@ -8,6 +8,7 @@ import UserDashboard from '@/pages/UserDashboard';
 import AdminDashboard from '@/pages/AdminDashboard';
 import MapView from '@/pages/MapView';
 import ReportPage from '@/pages/ReportPage';
+import LiveCamera from '@/pages/LiveCamera';
 import NotFound from '@/pages/NotFound';
 import { ReactNode } from 'react';
 
@@ -80,6 +81,18 @@ const AppRouter = () => (
             <>
               <Navbar />
               <ReportPage />
+            </>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/live-camera"
+        element={
+          <ProtectedRoute>
+            <>
+              <Navbar />
+              <LiveCamera />
             </>
           </ProtectedRoute>
         }
