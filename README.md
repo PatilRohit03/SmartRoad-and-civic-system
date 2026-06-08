@@ -56,7 +56,7 @@ The system operates around three distinct, highly specialized AI agents that coo
 
 We have recently completed a critical high-fidelity upgrade to the **Ministry Escalation SMTP Pipeline** to guarantee live, reliable email deliveries to the Ministry:
 
-1. **Gmail App Password Integration:** Configured live email delivery via Gmail's SMTP servers to `rohitkumarpatil04@gmail.com` using a secure 16-character Google App Password (`aafusmeqjmgaxdpt`).
+1. **Gmail App Password Integration:** Configured live email delivery via Gmail's SMTP servers to `rohitkumarpatil04@gmail.com` using a secure 16-character Google App Password.
 2. **HELO/EHLO Hostname Handshake Patch:** Discovered that Python's `smtplib` default EHLO handshakes were rejected by Gmail with error `501 5.5.4` due to invalid hostnames (containing `@` and periods) on local Windows development computers. Resolved this by forcing `local_hostname="localhost"` in all SMTP connection layers.
 3. **High-Fidelity MIME Inline CID Graphics:** Fixed the broken image placeholders inside received emails. Rather than referencing local backend endpoints (which are inaccessible to external email servers), images are packaged directly inside the email file as `MIMEImage` attachments using unique `Content-ID` (`cid:`) headers.
 4. **Dual-Mode Rendering Architecture:** Configured the generated grievance reports to render with inlined CIDs inside email bodies, while preserving the standard localhost URLs inside the locally saved HTML logs. This maintains full preview functionality when administrators inspect letters on the frontend Admin Dashboard.
