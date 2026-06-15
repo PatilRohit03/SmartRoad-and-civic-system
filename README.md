@@ -338,3 +338,36 @@ npm run dev
    Invoke-RestMethod -Uri http://127.0.0.1:8000/check-overdue
    ```
 6. Check your inbox! You will receive a beautifully formatted MoRTH grievance letter with embedded inline graphics illustrating the detected hazard.
+
+---
+
+## 🐳 Run the Project with Docker (Alternative Setup)
+
+If you have **Docker** and **Docker Desktop** installed on your computer, you can run the entire project with a single command. You do not need to install Python, Node.js, or MongoDB manually on your machine!
+
+### Prerequisites:
+1. Make sure **Docker Desktop** is open and running on your computer.
+2. Ensure you have created your `.env` file in the root folder (as shown in the guide above) with your Gemini API key and email settings.
+
+### Step 1: Start the Project
+Open your command prompt or terminal in the project's root folder and run:
+```bash
+docker-compose up --build
+```
+This single command will automatically:
+* Setup and start a MongoDB database for you.
+* Compile and start the backend Python server.
+* Compile and start the React website.
+
+### Step 2: Open and Use the Website
+Once the terminal shows that the servers have started, open your web browser and go to:
+* **The Website UI:** [http://localhost:8080](http://localhost:8080)
+* **The Backend API:** [http://localhost:8000](http://localhost:8000)
+
+All photos uploaded and email reports generated will continue to save directly onto your local machine in the `uploads/` folder!
+
+### Step 3: Stop the Project
+To stop running the project, press `Ctrl + C` in the terminal where Docker is running. Or, you can open a new terminal in the same folder and run:
+```bash
+docker-compose down
+```
